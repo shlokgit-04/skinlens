@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkinLens — AI Skin Analysis from your webcam</title>
+<meta name="description" content="SkinLens turns your webcam into a skin coach: one selfie, eight AI skin-concern scores from Perfect Corp's YouCam Skin Analysis API.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%8D%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">SL</span><span class="brand-name">SkinLens</span></div>
+  <span id="api-badge" class="badge badge-idle">checking engine…</span>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Your webcam is the skin clinic.</h1>
+    <p>One front-facing selfie, eight AI skin-concern scores, plus the detection masks behind each score. Powered by the YouCam Skin Analysis API.</p>
+  </section>
+
+  <section class="stage">
+    <div class="camera-panel">
+      <div class="camera-frame">
+        <video id="camera" autoplay playsinline muted></video>
+        <canvas id="snapshot" hidden></canvas>
+        <div id="cam-msg" class="cam-msg">Starting camera…</div>
+        <div id="countdown" class="countdown" hidden></div>
+        <div id="spinner" class="spinner" hidden><div class="spin"></div><span id="spin-label">Analyzing…</span></div>
+      </div>
+      <div class="checklist" id="checklist">
+        <span>✓ face the camera straight on</span><span>✓ hair down, off your face</span><span>✓ even light, no strong shadows</span>
+      </div>
+      <div class="controls">
+        <button id="btn-capture" class="btn btn-primary" disabled>Capture selfie</button>
+        <button id="btn-retake" class="btn" hidden>Retake</button>
+        <button id="btn-analyze" class="btn btn-primary" hidden disabled>Analyze skin</button>
+      </div>
+      <div id="error-box" class="error-box" hidden></div>
+    </div>
+
+    <div class="results-panel">
+      <div class="panel-title">Analysis</div>
+      <div id="results-empty" class="results-empty">Capture a selfie and run an analysis to see your eight skin-concern scores here.</div>
+      <div id="results" hidden>
+        <div class="results-head">
+          <img id="result-photo" alt="Analyzed selfie">
+          <div class="summary">
+            <div class="summary-title">Concern snapshot</div>
+            <div id="summary-note" class="summary-note">Scores are 0–100 as returned by the YouCam engine.</div>
+          </div>
+        </div>
+        <div id="concern-list" class="concern-list"></div>
+        <div class="mask-row">
+          <div class="panel-subtitle">Detection masks</div>
+          <p class="mask-note">Tap a concern above to overlay the engine's detection mask on your photo.</p>
+          <div id="mask-strip" class="mask-strip"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>SkinLens · built for the YouCam API Skin AI &amp; eCommerce VTO Hackathon</span>
+  <span>Skin scores are cosmetic estimates, not a medical diagnosis.</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
